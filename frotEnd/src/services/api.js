@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5050/api', // update if backend runs on different port
+  baseURL: import.meta.env.VITE_API_BASE_URL, // now using environment variable instead of localhost
 });
 
 // Add token to every request if available
