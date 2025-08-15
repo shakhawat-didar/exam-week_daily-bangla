@@ -63,7 +63,10 @@ const Home = () => {
     <div className="space-y-8">
       {/* Hero / Top 6 */}
       <section>
-        <h2 className="text-2xl font-bold text-red-500 mb-4">Top News</h2>
+        <div className="flex items-center gap-3 mb-4">
+          <h2 className="text-2xl font-bold text-red-500 animate-pulse">Top News</h2>
+          <span className="text-2xl text-red-500">🔥</span>
+        </div>
         <div className="grid md:grid-cols-3 gap-4">
           {top.map(n => (
             <Link to={`/news/${n._id}`} key={n._id} className="card p-3 border rounded">
@@ -77,7 +80,10 @@ const Home = () => {
 
       {/* Latest */}
       <section>
-        <h2 className="text-2xl font-bold text-red-500 mb-4">Latest News</h2>
+        <div className="flex items-center gap-3 mb-4">
+          <h2 className="text-2xl font-bold text-red-500 animate-pulse">Latest News</h2>
+          <span className="text-2xl text-red-500">⏰</span>
+        </div>
         <div className="grid md:grid-cols-4 gap-4">
           {latest.map(n => (
             <Link to={`/news/${n._id}`} key={n._id} className="p-3 border rounded">
@@ -90,12 +96,15 @@ const Home = () => {
 
       {/* Category Highlights */}
       <section>
-        <h2 className="text-2xl font-bold text-red-500 mb-4">Category Highlights</h2>
+        <div className="flex items-center gap-3 mb-4">
+          <h2 className="text-2xl font-bold text-red-500 animate-pulse">Category Highlights</h2>
+          <span className="text-2xl text-red-500">📂</span>
+        </div>
         <div className="grid md:grid-cols-2 gap-6">
           {categories.map(cat => (
             <div key={cat} className="p-4 border rounded">
               <div className="flex justify-between items-center mb-3">
-                <h3 className="font-semibold">{cat}</h3>
+                <h3 className="font-semibold text-red-500">{cat}</h3>
                 <Link to={`/news?category=${encodeURIComponent(cat)}`} className="text-sm text-blue-600">View All</Link>
               </div>
               <ul className="space-y-2">
@@ -112,12 +121,15 @@ const Home = () => {
 
       {/* Trending */}
       <section>
-        <h2 className="text-2xl font-bold text-red-500 mb-4">Trending</h2>
+        <div className="flex items-center gap-3 mb-4">
+          <h2 className="text-2xl font-bold text-red-500 animate-pulse">Trending</h2>
+          <span className="text-2xl text-red-500">📈</span>
+        </div>
         <div className="grid md:grid-cols-3 gap-4">
           {trending.map(n => (
             <Link to={`/news/${n._id}`} key={n._id} className="p-3 border rounded">
               {n.image && <img src={n.image} alt={n.title} className="w-full h-36 object-cover rounded mb-2" />}
-              <h3 className="font-medium">{n.title}</h3>
+              <h3 className="font-medium ">{n.title}</h3>
               <p className="text-xs text-gray-500">{n.views || 0} views</p>
             </Link>
           ))}
@@ -126,7 +138,10 @@ const Home = () => {
 
       {/* Gallery */}
       <section>
-        <h2 className="text-2xl font-bold text-red-500 mb-4">Photo Gallery</h2>
+        <div className="flex items-center gap-3 mb-4">
+          <h2 className="text-2xl font-bold text-red-500 animate-pulse">Photo Gallery</h2>
+          <span className="text-2xl text-red-500">📷</span>
+        </div>
         <div className="grid md:grid-cols-4 gap-4">
           {gallery.map(n => (
             <Link to={`/news/${n._id}`} key={n._id} className="block border rounded overflow-hidden">

@@ -1,8 +1,7 @@
 // pages/News.jsx
 import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-// import { fetchAllNews } from '../services/newsService';
-import api from '../services/api';
+import { fetchAllNews } from '../services/newsService';
 
 const News = () => {
   const [news, setNews] = useState([]);
@@ -18,9 +17,7 @@ const News = () => {
     const load = async () => {
       try {
         setLoading(true);
-        // const res = await fetchAllNews(page, 12, category);
-        const res = await api.get('/news');
-setNews(res.data);
+        const res = await fetchAllNews(page, 12, category);
         setNews(res.data.data || res.data); // handle pagination or old shape
         setPages(res.data.pages || 1);
       } catch (err) {
@@ -37,7 +34,7 @@ setNews(res.data);
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">
+      <h1 className="text-2xl font-bold text-red-600">
         {category ? `${category} News` : 'All News'}
       </h1>
 
