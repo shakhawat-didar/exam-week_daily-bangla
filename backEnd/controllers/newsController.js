@@ -35,6 +35,25 @@ export const getAllNews = async (req, res) => {
   }
 };
 
+// Get current user's news (protected)
+export const getUserNews = async (req, res) => {
+  try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await News.countDocuments({ author: req.user._id });
+    const news = await News.find({ author: req.user._id })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({ data: news, page, pages: Math.ceil(total / limit), total });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user news', error: error.message });
+  }
+};
+
 // Top news (top 6) — you said already exists; keep it
 export const getTopNews = async (req, res) => {
   try {
@@ -78,7 +97,7 @@ export const getGalleryNews = async (req, res) => {
       .limit(limit);
     res.json(news);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching gallery news' });
+    res.status(500).json({ message: 'Error fetching category news' });
   }
 };
 
@@ -130,7 +149,7 @@ export const deleteNews = async (req, res) => {
     if (news.author.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'Not authorized' });
     }
-    await news.remove();
+    await News.deleteOne({ _id: req.params.id });
     res.json({ message: 'News removed' });
   } catch (error) {
     res.status(500).json({ message: 'Error deleting news', error: error.message });
